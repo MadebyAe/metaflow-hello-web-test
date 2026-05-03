@@ -39,6 +39,8 @@ const updateStatus = () => {
     : `${remaining} task${remaining !== 1 ? 's' : ''} remaining`;
 
   clearBtn.hidden = completed === 0;
+
+  // Update tab title: show remaining count when > 0, else plain "Tasks"
   document.title = remaining > 0 ? `(${remaining}) Tasks` : 'Tasks';
 };
 
