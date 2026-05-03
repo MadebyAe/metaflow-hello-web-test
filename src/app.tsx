@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Filter } from './types';
-import { useTasks } from './use-tasks';
+import { useTasks } from './hooks/use-tasks';
 import { TaskInput } from './components/task-input';
 import { Filters } from './components/filters';
 import { TaskList } from './components/task-list';
@@ -38,9 +38,10 @@ export function App() {
         onCyclePriority={cyclePriority}
       />
       <Footer
+        totalTasksCount={tasks.length}
         remainingCount={remainingCount}
         completedCount={completedCount}
-        onClearCompleted={clearCompleted}
+        onClear={clearCompleted}
       />
     </div>
   );
