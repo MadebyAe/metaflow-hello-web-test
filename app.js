@@ -87,14 +87,10 @@ const renderEmptyState = (message) => {
   return li;
 };
 
-const render = (filtered) => {
-  // filtered is an optional subset of tasks to display (e.g. from a filter view).
-  // If not provided, all tasks are rendered.
-  const visibleTasks = filtered !== undefined ? filtered : tasks;
+const render = () => {
+  const visibleTasks = getFilteredTasks();
 
   list.innerHTML = '';
-
-  const visibleTasks = getFilteredTasks();
 
   if (tasks.length === 0) {
     list.appendChild(renderEmptyState('No tasks yet — add one above'));
