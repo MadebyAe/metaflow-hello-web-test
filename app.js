@@ -39,6 +39,8 @@ const updateStatus = () => {
     : `${remaining} task${remaining !== 1 ? 's' : ''} remaining`;
 
   clearBtn.hidden = completed === 0;
+
+  // Update tab title: show remaining count when > 0, else plain "Tasks"
   document.title = remaining > 0 ? `(${remaining}) Tasks` : 'Tasks';
 };
 
@@ -87,14 +89,10 @@ const renderEmptyState = (message) => {
   return li;
 };
 
-const render = (filtered) => {
-  // filtered is an optional subset of tasks to display (e.g. from a filter view).
-  // If not provided, all tasks are rendered.
-  const visibleTasks = filtered !== undefined ? filtered : tasks;
+const render = () => {
+  const visibleTasks = getFilteredTasks();
 
   list.innerHTML = '';
-
-  const visibleTasks = getFilteredTasks();
 
   if (tasks.length === 0) {
     list.appendChild(renderEmptyState('No tasks yet — add one above'));
