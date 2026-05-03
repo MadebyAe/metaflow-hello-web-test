@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-const localStorageStore: Record<string, string> = {};
+let localStorageStore: Record<string, string> = {};
 
 const localStorageMock: Storage = {
   getItem: (key: string) => localStorageStore[key] ?? null,
@@ -11,9 +11,7 @@ const localStorageMock: Storage = {
     delete localStorageStore[key];
   },
   clear: () => {
-    Object.keys(localStorageStore).forEach((key) => {
-      delete localStorageStore[key];
-    });
+    localStorageStore = {};
   },
   key: (index: number) => Object.keys(localStorageStore)[index] ?? null,
   get length() {
