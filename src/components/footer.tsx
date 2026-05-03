@@ -17,6 +17,7 @@ export function Footer({ remainingCount, completedCount, onClearCompleted }: Foo
           Clear completed
         </button>
       )}
+      <span className="version-badge">v1.0.0</span>
     </footer>
   );
 }
