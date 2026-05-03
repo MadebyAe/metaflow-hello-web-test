@@ -12,6 +12,7 @@ const updateStatus = () => {
   status.textContent = tasks.length === 0
     ? ''
     : `${remaining} task${remaining !== 1 ? 's' : ''} remaining`;
+  document.title = remaining > 0 ? `(${remaining}) Tasks` : 'Tasks';
 };
 
 const renderTask = (task) => {
