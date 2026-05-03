@@ -4,6 +4,12 @@ import { Task, Priority } from '../types';
 const STORAGE_KEY = 'tasks';
 const PRIORITY_CYCLE: Priority[] = ['none', 'low', 'medium', 'high'];
 
+let nextId = Date.now();
+
+function generateId(): number {
+  return nextId++;
+}
+
 function loadTasks(): Task[] {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -23,7 +29,7 @@ export function useTasks() {
 
   const addTask = (text: string) => {
     const newTask: Task = {
-      id: Date.now(),
+      id: generateId(),
       text,
       done: false,
       priority: 'none',
