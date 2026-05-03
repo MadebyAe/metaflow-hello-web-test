@@ -136,12 +136,20 @@ const cycleTaskPriority = (id) => {
   render();
 };
 
-form.addEventListener('submit', (e) => {
+const submitForm = (e) => {
   e.preventDefault();
   const text = input.value.trim();
   if (text) {
     addTask(text);
     input.value = '';
+  }
+};
+
+form.addEventListener('submit', submitForm);
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    submitForm(e);
   }
 });
 
