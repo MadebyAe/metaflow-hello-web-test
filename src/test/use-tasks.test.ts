@@ -2,19 +2,8 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useTasks } from '../use-tasks';
 
-const localStorageMock = (() => {
-  let store: Record<string, string> = {};
-  return {
-    getItem: (key: string) => store[key] ?? null,
-    setItem: (key: string, value: string) => { store[key] = value; },
-    clear: () => { store = {}; },
-  };
-})();
-
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
 beforeEach(() => {
-  localStorageMock.clear();
+  localStorage.clear();
   vi.restoreAllMocks();
 });
 
@@ -26,7 +15,7 @@ describe('useTasks', () => {
 
   it('loads tasks from localStorage on mount', () => {
     const stored = [{ id: 1, text: 'Existing task', done: false, priority: 'none' }];
-    localStorageMock.setItem('tasks', JSON.stringify(stored));
+    localStorage.setItem('tasks', JSON.stringify(stored));
     const { result } = renderHook(() => useTasks());
     expect(result.current.tasks).toHaveLength(1);
     expect(result.current.tasks[0].text).toBe('Existing task');
@@ -88,7 +77,7 @@ describe('useTasks', () => {
   it('persists tasks to localStorage after mutations', () => {
     const { result } = renderHook(() => useTasks());
     act(() => { result.current.addTask('Persist me'); });
-    const stored = JSON.parse(localStorageMock.getItem('tasks') ?? '[]') as Array<{ text: string }>;
+    const stored = JSON.parse(localStorage.getItem('tasks') ?? '[]') as Array<{ text: string }>;
     expect(stored[0].text).toBe('Persist me');
   });
 });
