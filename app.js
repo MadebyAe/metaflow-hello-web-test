@@ -3,8 +3,10 @@ const input = document.getElementById('task-input');
 const list = document.getElementById('task-list');
 const status = document.getElementById('status');
 const clearBtn = document.getElementById('clear-completed');
+const filterBtns = document.querySelectorAll('.filter-btn');
 
 let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+let currentFilter = 'all';
 
 const save = () => localStorage.setItem('tasks', JSON.stringify(tasks));
 
@@ -13,6 +15,12 @@ const PRIORITY_CYCLE = ['none', 'low', 'medium', 'high'];
 const nextPriority = (current) => {
   const idx = PRIORITY_CYCLE.indexOf(current ?? 'none');
   return PRIORITY_CYCLE[(idx + 1) % PRIORITY_CYCLE.length];
+};
+
+const getFilteredTasks = () => {
+  if (currentFilter === 'active') return tasks.filter(t => !t.done);
+  if (currentFilter === 'completed') return tasks.filter(t => t.done);
+  return tasks;
 };
 
 const updateStatus = () => {
@@ -32,6 +40,12 @@ const updateStatus = () => {
 
   clearBtn.hidden = completed === 0;
   document.title = remaining > 0 ? `(${remaining}) Tasks` : 'Tasks';
+};
+
+const updateFilterButtons = () => {
+  filterBtns.forEach(btn => {
+    btn.classList.toggle('filter-btn--active', btn.dataset.filter === currentFilter);
+  });
 };
 
 const renderTask = (task) => {
@@ -80,6 +94,8 @@ const render = (filtered) => {
 
   list.innerHTML = '';
 
+  const visibleTasks = getFilteredTasks();
+
   if (tasks.length === 0) {
     list.appendChild(renderEmptyState('No tasks yet — add one above'));
   } else if (visibleTasks.length === 0) {
@@ -89,6 +105,7 @@ const render = (filtered) => {
   }
 
   updateStatus();
+  updateFilterButtons();
 };
 
 const addTask = (text) => {
@@ -133,5 +150,12 @@ form.addEventListener('submit', (e) => {
 });
 
 clearBtn.addEventListener('click', clearCompleted);
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentFilter = btn.dataset.filter;
+    render();
+  });
+});
 
 render();
