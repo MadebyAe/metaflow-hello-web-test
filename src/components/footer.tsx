@@ -1,25 +1,22 @@
 interface FooterProps {
-  totalTasksCount: number;
   remainingCount: number;
   completedCount: number;
-  onClear: () => void;
+  onClearCompleted: () => void;
 }
 
-export function Footer({ totalTasksCount, remainingCount, completedCount, onClear }: FooterProps) {
-  const statusText = totalTasksCount === 0
-    ? ''
-    : `${remainingCount} task${remainingCount !== 1 ? 's' : ''} remaining`;
+export function Footer({ remainingCount, completedCount, onClearCompleted }: FooterProps) {
+  const statusText = remainingCount > 0 || completedCount > 0
+    ? `${remainingCount} task${remainingCount !== 1 ? 's' : ''} remaining`
+    : '';
 
   return (
     <footer id="status">
       {statusText && <span>{statusText}</span>}
-      <button
-        id="clear-completed"
-        onClick={onClear}
-        hidden={completedCount === 0}
-      >
-        Clear completed
-      </button>
+      {completedCount > 0 && (
+        <button onClick={onClearCompleted}>
+          Clear completed
+        </button>
+      )}
     </footer>
   );
 }
