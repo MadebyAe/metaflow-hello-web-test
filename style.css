@@ -186,3 +186,11 @@ button[type="submit"]:hover {
   background-color: #4299e1;
   border-color: #4299e1;
 }
+
+.empty-state {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.95rem;
+  padding: 24px 16px;
+  list-style: none;
+}
