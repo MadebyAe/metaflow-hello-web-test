@@ -65,6 +65,40 @@ button[type="submit"]:hover {
   opacity: 0.8;
 }
 
+#filters {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: #fff;
+  color: #555;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background-color 0.15s;
+}
+
+.filter-btn:hover {
+  border-color: #aaa;
+  color: #1a1a1a;
+}
+
+.filter-btn--active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+.filter-btn--active:hover {
+  opacity: 0.85;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
 #task-list {
   list-style: none;
   display: flex;
