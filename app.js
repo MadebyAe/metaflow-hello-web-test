@@ -14,6 +14,19 @@ const updateStatus = () => {
     : `${remaining} task${remaining !== 1 ? 's' : ''} remaining`;
 };
 
+const PRIORITIES = [null, 'low', 'medium', 'high'];
+
+const cyclePriority = (id) => {
+  tasks = tasks.map(t => {
+    if (t.id !== id) return t;
+    const idx = PRIORITIES.indexOf(t.priority ?? null);
+    const next = PRIORITIES[(idx + 1) % PRIORITIES.length];
+    return { ...t, priority: next };
+  });
+  save();
+  render();
+};
+
 const renderTask = (task) => {
   const li = document.createElement('li');
   li.className = `task-item${task.done ? ' done' : ''}`;
@@ -23,6 +36,20 @@ const renderTask = (task) => {
   checkbox.type = 'checkbox';
   checkbox.checked = task.done;
   checkbox.addEventListener('change', () => toggleTask(task.id));
+
+  const dot = document.createElement('span');
+  dot.className = 'priority-dot';
+  if (task.priority) dot.classList.add(`priority-${task.priority}`);
+  dot.setAttribute('aria-label', task.priority ? `Priority: ${task.priority}` : 'Set priority');
+  dot.setAttribute('role', 'button');
+  dot.setAttribute('tabindex', '0');
+  dot.addEventListener('click', () => cyclePriority(task.id));
+  dot.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      cyclePriority(task.id);
+    }
+  });
 
   const label = document.createElement('span');
   label.className = 'task-label';
@@ -35,7 +62,7 @@ const renderTask = (task) => {
   del.setAttribute('aria-label', 'Delete task');
   del.addEventListener('click', () => deleteTask(task.id));
 
-  li.append(checkbox, label, del);
+  li.append(checkbox, dot, label, del);
   return li;
 };
 
@@ -46,7 +73,7 @@ const render = () => {
 };
 
 const addTask = (text) => {
-  tasks.push({ id: Date.now(), text, done: false });
+  tasks.push({ id: Date.now(), text, done: false, priority: null });
   save();
   render();
 };

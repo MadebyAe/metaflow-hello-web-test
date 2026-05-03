@@ -95,6 +95,27 @@ button[type="submit"]:hover {
   flex-shrink: 0;
 }
 
+.priority-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.priority-dot.priority-high {
+  background: #e55;
+}
+
+.priority-dot.priority-medium {
+  background: #f0b429;
+}
+
+.priority-dot.priority-low {
+  background: #4a9edd;
+}
+
 .task-label {
   flex: 1;
   font-size: 0.95rem;
