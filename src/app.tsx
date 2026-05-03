@@ -43,7 +43,6 @@ export function App() {
         onCyclePriority={cyclePriority}
       />
       <Footer
-        totalTasksCount={tasks.length}
         remainingCount={remainingCount}
         completedCount={completedCount}
         onClear={clearCompleted}
