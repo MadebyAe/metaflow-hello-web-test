@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Tasks</h1>
+    </header>
+
+    <form id="add-form">
+      <input
+        id="task-input"
+        type="text"
+        placeholder="Add a task..."
+        autocomplete="off"
+      />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="task-list"></ul>
+
+    <footer id="status"></footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
