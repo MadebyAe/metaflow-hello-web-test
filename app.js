@@ -2,6 +2,7 @@ const form = document.getElementById('add-form');
 const input = document.getElementById('task-input');
 const list = document.getElementById('task-list');
 const status = document.getElementById('status');
+const clearBtn = document.getElementById('clear-completed');
 
 let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
@@ -9,9 +10,20 @@ const save = () => localStorage.setItem('tasks', JSON.stringify(tasks));
 
 const updateStatus = () => {
   const remaining = tasks.filter(t => !t.done).length;
-  status.textContent = tasks.length === 0
+  const completed = tasks.length - remaining;
+
+  let statusText = document.getElementById('status-text');
+  if (!statusText) {
+    statusText = document.createElement('span');
+    statusText.id = 'status-text';
+    status.insertBefore(statusText, clearBtn);
+  }
+
+  statusText.textContent = tasks.length === 0
     ? ''
     : `${remaining} task${remaining !== 1 ? 's' : ''} remaining`;
+
+  clearBtn.hidden = completed === 0;
 };
 
 const renderTask = (task) => {
@@ -63,6 +75,12 @@ const deleteTask = (id) => {
   render();
 };
 
+const clearCompleted = () => {
+  tasks = tasks.filter(t => !t.done);
+  save();
+  render();
+};
+
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const text = input.value.trim();
@@ -71,5 +89,7 @@ form.addEventListener('submit', (e) => {
     input.value = '';
   }
 });
+
+clearBtn.addEventListener('click', clearCompleted);
 
 render();

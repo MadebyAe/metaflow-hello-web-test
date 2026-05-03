@@ -122,7 +122,33 @@ button[type="submit"]:hover {
 }
 
 #status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.85rem;
   color: #888;
+  min-height: 1.2em;
+}
+
+#status:not(:has(#clear-completed:not([hidden]))) {
+  justify-content: center;
+}
+
+#status-text {
   text-align: center;
+}
+
+#clear-completed {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #aaa;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+#clear-completed:hover {
+  color: #e55;
 }
