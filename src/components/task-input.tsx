@@ -7,11 +7,11 @@ interface TaskInputProps {
 export function TaskInput({ onAdd }: TaskInputProps) {
   const [value, setValue] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const text = value.trim();
-    if (text) {
-      onAdd(text);
+    const trimmed = value.trim();
+    if (trimmed) {
+      onAdd(trimmed);
       setValue('');
     }
   };

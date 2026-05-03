@@ -13,13 +13,14 @@ const FILTERS: { label: string; value: Filter }[] = [
 
 export function Filters({ currentFilter, onFilterChange }: FiltersProps) {
   return (
-    <div id="filters" role="group" aria-label="Filter tasks">
+    <div id="filters">
       {FILTERS.map(({ label, value }) => (
         <button
           key={value}
           className={`filter-btn${currentFilter === value ? ' filter-btn--active' : ''}`}
-          aria-pressed={currentFilter === value}
+          data-filter={value}
           onClick={() => onFilterChange(value)}
+          aria-pressed={currentFilter === value}
         >
           {label}
         </button>
