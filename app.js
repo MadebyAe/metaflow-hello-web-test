@@ -7,6 +7,13 @@ let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
 
 const save = () => localStorage.setItem('tasks', JSON.stringify(tasks));
 
+const PRIORITY_CYCLE = ['none', 'low', 'medium', 'high'];
+
+const nextPriority = (current) => {
+  const idx = PRIORITY_CYCLE.indexOf(current ?? 'none');
+  return PRIORITY_CYCLE[(idx + 1) % PRIORITY_CYCLE.length];
+};
+
 const updateStatus = () => {
   const remaining = tasks.filter(t => !t.done).length;
   status.textContent = tasks.length === 0
@@ -16,6 +23,8 @@ const updateStatus = () => {
 };
 
 const renderTask = (task) => {
+  const priority = task.priority ?? 'none';
+
   const li = document.createElement('li');
   li.className = `task-item${task.done ? ' done' : ''}`;
   li.dataset.id = task.id;
@@ -24,6 +33,11 @@ const renderTask = (task) => {
   checkbox.type = 'checkbox';
   checkbox.checked = task.done;
   checkbox.addEventListener('change', () => toggleTask(task.id));
+
+  const dot = document.createElement('span');
+  dot.className = `priority-dot${priority !== 'none' ? ` priority-${priority}` : ''}`;
+  dot.setAttribute('aria-label', `Priority: ${priority}`);
+  dot.addEventListener('click', () => cycleTaskPriority(task.id));
 
   const label = document.createElement('span');
   label.className = 'task-label';
@@ -36,7 +50,7 @@ const renderTask = (task) => {
   del.setAttribute('aria-label', 'Delete task');
   del.addEventListener('click', () => deleteTask(task.id));
 
-  li.append(checkbox, label, del);
+  li.append(checkbox, dot, label, del);
   return li;
 };
 
@@ -47,7 +61,7 @@ const render = () => {
 };
 
 const addTask = (text) => {
-  tasks.push({ id: Date.now(), text, done: false });
+  tasks.push({ id: Date.now(), text, done: false, priority: 'none' });
   save();
   render();
 };
@@ -60,6 +74,14 @@ const toggleTask = (id) => {
 
 const deleteTask = (id) => {
   tasks = tasks.filter(t => t.id !== id);
+  save();
+  render();
+};
+
+const cycleTaskPriority = (id) => {
+  tasks = tasks.map(t =>
+    t.id === id ? { ...t, priority: nextPriority(t.priority) } : t
+  );
   save();
   render();
 };
