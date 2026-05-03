@@ -6,6 +6,7 @@ import { TaskInput } from './components/task-input';
 import { Filters } from './components/filters';
 import { TaskList } from './components/task-list';
 import { Footer } from './components/footer';
+import { ThemeToggle } from './components/theme-toggle';
 
 export function App() {
   const [currentFilter, setCurrentFilter] = useState<Filter>('all');
@@ -29,9 +30,7 @@ export function App() {
     <div id="app">
       <header>
         <h1>Tasks</h1>
-        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-          {theme === 'light' ? 'Dark' : 'Light'}
-        </button>
+        <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
       <TaskInput onAdd={addTask} />
       <Filters currentFilter={currentFilter} onFilterChange={setCurrentFilter} />
