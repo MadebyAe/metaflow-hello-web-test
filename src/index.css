@@ -159,6 +159,21 @@ button[type="submit"]:hover {
   font-size: 0.85rem;
   color: #888;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.version-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #aaa;
+  background: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2px 10px;
+  letter-spacing: 0.03em;
 }
 
 .priority-dot {
