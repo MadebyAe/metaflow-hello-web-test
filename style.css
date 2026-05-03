@@ -126,3 +126,29 @@ button[type="submit"]:hover {
   color: #888;
   text-align: center;
 }
+
+.priority-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1.5px solid #ccc;
+  transition: background-color 0.2s ease;
+}
+
+.priority-dot.priority-high {
+  background-color: #e53e3e;
+  border-color: #e53e3e;
+}
+
+.priority-dot.priority-medium {
+  background-color: #ecc94b;
+  border-color: #ecc94b;
+}
+
+.priority-dot.priority-low {
+  background-color: #4299e1;
+  border-color: #4299e1;
+}
