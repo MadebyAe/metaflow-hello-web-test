@@ -1,3 +1,4 @@
 .metaflow/
 node_modules/
 dist/
+.aider*
