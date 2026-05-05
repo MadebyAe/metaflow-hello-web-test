@@ -16,17 +16,20 @@ function getOsTheme(): Theme {
 }
 
 function getStoredTheme(): Theme | null {
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark') return stored
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored === 'light' || stored === 'dark') return stored
+  } catch {
+    // localStorage unavailable
+  }
   return null
 }
 
 export function useTheme() {
-  // null = no manual override, follow OS
   const [manualTheme, setManualTheme] = useState<Theme | null>(getStoredTheme)
   const [osTheme, setOsTheme] = useState<Theme>(getOsTheme)
 
-  const theme = manualTheme ?? osTheme
+  const theme: Theme = manualTheme ?? osTheme
 
   // Apply theme to document
   useEffect(() => {
