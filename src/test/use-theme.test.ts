@@ -34,8 +34,8 @@ function makeMql(matches: boolean) {
 beforeEach(() => {
   localStorage.clear()
   document.documentElement.removeAttribute('data-theme')
-  // Reset call history but keep the vi.fn() spy intact so mockImplementation works
-  vi.resetAllMocks()
+  // Clear call history but preserve the default mockImplementation from setup.ts
+  vi.clearAllMocks()
 })
 
 describe('useTheme', () => {
