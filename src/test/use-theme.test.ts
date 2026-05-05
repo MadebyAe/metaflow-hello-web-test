@@ -31,11 +31,21 @@ function makeMql(matches: boolean) {
   return mql
 }
 
+const defaultMatchMedia = (query: string): MediaQueryList => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+})
+
 beforeEach(() => {
   localStorage.clear()
   document.documentElement.removeAttribute('data-theme')
-  // Clear call history but preserve the default mockImplementation from setup.ts
-  vi.clearAllMocks()
+  ;(window.matchMedia as Mock).mockImplementation(defaultMatchMedia)
 })
 
 describe('useTheme', () => {
