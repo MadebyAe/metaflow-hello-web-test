@@ -14,7 +14,7 @@ export function Footer({ remainingCount, completedCount, onClear }: FooterProps)
     <footer id="status">
       {statusText && <span>{statusText}</span>}
       {completedCount > 0 && (
-        <button onClick={onClear}>Clear completed</button>
+        <button className="clear-btn" onClick={onClear}>Clear completed</button>
       )}
       <span className="version-badge">v1.0.0</span>
     </footer>

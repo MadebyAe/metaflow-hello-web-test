@@ -234,6 +234,23 @@ button[type="submit"]:hover {
   gap: 8px;
 }
 
+.clear-btn {
+  padding: 6px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.clear-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
 .version-badge {
   display: inline-block;
   font-size: 0.75rem;
