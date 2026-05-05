@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Filter } from './types';
 import { useTasks } from './hooks/use-tasks';
-import { useTheme } from './hooks/use-theme';
+// import { useTheme } from './hooks/use-theme';
 import { TaskInput } from './components/task-input';
 import { Filters } from './components/filters';
 import { TaskList } from './components/task-list';
 import { Footer } from './components/footer';
-import { ThemeToggle } from './components/theme-toggle';
+// import { ThemeToggle } from './components/theme-toggle';
 
 export function App() {
   const [currentFilter, setCurrentFilter] = useState<Filter>('all');
   const { tasks, addTask, toggleTask, deleteTask, clearCompleted, cyclePriority } = useTasks();
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme();
 
   const filteredTasks = tasks.filter((t) => {
     if (currentFilter === 'active') return !t.done;
@@ -30,7 +30,7 @@ export function App() {
     <div id="app">
       <header>
         <h1>Tasks</h1>
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        {/* <ThemeToggle theme={theme} onToggle={toggleTheme} /> */}
       </header>
       <TaskInput onAdd={addTask} />
       <Filters currentFilter={currentFilter} onFilterChange={setCurrentFilter} />
