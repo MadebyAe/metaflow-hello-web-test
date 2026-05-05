@@ -1,12 +1,12 @@
 interface ThemeToggleProps {
-  theme: 'light' | 'dark';
-  onToggle: () => void;
+  theme: 'light' | 'dark'
+  onToggle: () => void
 }
 
 export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
-  const isDark = theme === 'dark';
-  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-  const icon = isDark ? '☀️' : '🌙';
+  const isDark = theme === 'dark'
+  const label = isDark ? 'Switch to light mode' : 'Switch to dark mode'
+  const icon = isDark ? '☀️' : '🌙'
 
   return (
     <button
@@ -18,5 +18,5 @@ export function ThemeToggle({ theme, onToggle }: ThemeToggleProps) {
     >
       {icon}
     </button>
-  );
+  )
 }

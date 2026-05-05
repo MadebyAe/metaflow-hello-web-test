@@ -1,14 +1,20 @@
-import { Task } from '../types';
+import { Task } from '../types'
 
 interface TaskItemProps {
-  task: Task;
-  onToggle: (id: number) => void;
-  onDelete: (id: number) => void;
-  onCyclePriority: (id: number) => void;
+  task: Task
+  onToggle: (id: number) => void
+  onDelete: (id: number) => void
+  onCyclePriority: (id: number) => void
 }
 
-export function TaskItem({ task, onToggle, onDelete, onCyclePriority }: TaskItemProps) {
-  const priorityClass = task.priority !== 'none' ? ` priority-${task.priority}` : '';
+export function TaskItem({
+  task,
+  onToggle,
+  onDelete,
+  onCyclePriority,
+}: TaskItemProps) {
+  const priorityClass =
+    task.priority !== 'none' ? ` priority-${task.priority}` : ''
 
   return (
     <li className={`task-item${task.done ? ' done' : ''}`}>
@@ -26,15 +32,12 @@ export function TaskItem({ task, onToggle, onDelete, onCyclePriority }: TaskItem
         onClick={() => onCyclePriority(task.id)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onCyclePriority(task.id);
+            e.preventDefault()
+            onCyclePriority(task.id)
           }
         }}
       />
-      <span
-        className="task-label"
-        onClick={() => onToggle(task.id)}
-      >
+      <span className="task-label" onClick={() => onToggle(task.id)}>
         {task.text}
       </span>
       <button
@@ -45,5 +48,5 @@ export function TaskItem({ task, onToggle, onDelete, onCyclePriority }: TaskItem
         ×
       </button>
     </li>
-  );
+  )
 }

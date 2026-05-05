@@ -3,6 +3,7 @@
 Migrate this plain HTML/CSS/JS task app to React + Vite. Preserve every existing feature exactly.
 
 ## Tech Stack
+
 - React 18 with hooks (no class components)
 - Vite as the build tool
 - TypeScript (strict mode)
@@ -11,6 +12,7 @@ Migrate this plain HTML/CSS/JS task app to React + Vite. Preserve every existing
 - No UI libraries — keep the existing visual design
 
 ## Existing Features to Preserve
+
 - Add a task via input + button (or pressing Enter)
 - Mark tasks complete via checkbox
 - Delete tasks via × button
@@ -22,19 +24,20 @@ Migrate this plain HTML/CSS/JS task app to React + Vite. Preserve every existing
 - Browser tab title: "(N) Tasks" when tasks remain, "Tasks" when none
 
 ## Target Structure
+
 src/
-  app.tsx
-  components/
-    task-input.tsx
-    task-list.tsx
-    task-item.tsx
-    filters.tsx
-    footer.tsx
-  hooks/
-    use-tasks.ts
-  types.ts          ← shared types: Task, Priority, Filter
-  index.css
-  main.tsx
+app.tsx
+components/
+task-input.tsx
+task-list.tsx
+task-item.tsx
+filters.tsx
+footer.tsx
+hooks/
+use-tasks.ts
+types.ts ← shared types: Task, Priority, Filter
+index.css
+main.tsx
 index.html
 package.json
 tsconfig.json
@@ -45,12 +48,15 @@ vite.config.ts
 Set up automatic deployment so every merge to main publishes the app live.
 
 ### vite.config.ts
+
 Set `base` to the repo name so assets resolve correctly on the Pages subdomain:
+
 ```ts
 base: '/metaflow-hello-web-test/'
 ```
 
 ### .github/workflows/deploy.yml
+
 ```yaml
 name: Deploy to GitHub Pages
 
@@ -83,6 +89,7 @@ After the first deploy, enable GitHub Pages in the repo settings:
 Live URL: `https://madebyae.github.io/metaflow-hello-web-test/`
 
 ## Acceptance Criteria
+
 - All existing features work identically to the current version
 - App runs with: npm install && npm run dev
 - TypeScript compiles with no errors: npm run build

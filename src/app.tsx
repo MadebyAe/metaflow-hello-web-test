@@ -1,30 +1,37 @@
-import { useState, useEffect } from 'react';
-import { Filter } from './types';
-import { useTasks } from './hooks/use-tasks';
-import { useTheme } from './hooks/use-theme';
-import { TaskInput } from './components/task-input';
-import { Filters } from './components/filters';
-import { TaskList } from './components/task-list';
-import { Footer } from './components/footer';
-import { ThemeToggle } from './components/theme-toggle';
+import { useState, useEffect } from 'react'
+import { Filter } from './types'
+import { useTasks } from './hooks/use-tasks'
+import { useTheme } from './hooks/use-theme'
+import { TaskInput } from './components/task-input'
+import { Filters } from './components/filters'
+import { TaskList } from './components/task-list'
+import { Footer } from './components/footer'
+import { ThemeToggle } from './components/theme-toggle'
 
 export function App() {
-  const [currentFilter, setCurrentFilter] = useState<Filter>('all');
-  const { tasks, addTask, toggleTask, deleteTask, clearCompleted, cyclePriority } = useTasks();
-  const { theme, toggleTheme } = useTheme();
+  const [currentFilter, setCurrentFilter] = useState<Filter>('all')
+  const {
+    tasks,
+    addTask,
+    toggleTask,
+    deleteTask,
+    clearCompleted,
+    cyclePriority,
+  } = useTasks()
+  const { theme, toggleTheme } = useTheme()
 
   const filteredTasks = tasks.filter((t) => {
-    if (currentFilter === 'active') return !t.done;
-    if (currentFilter === 'completed') return t.done;
-    return true;
-  });
+    if (currentFilter === 'active') return !t.done
+    if (currentFilter === 'completed') return t.done
+    return true
+  })
 
-  const remainingCount = tasks.filter((t) => !t.done).length;
-  const completedCount = tasks.length - remainingCount;
+  const remainingCount = tasks.filter((t) => !t.done).length
+  const completedCount = tasks.length - remainingCount
 
   useEffect(() => {
-    document.title = remainingCount > 0 ? `(${remainingCount}) Tasks` : 'Tasks';
-  }, [remainingCount]);
+    document.title = remainingCount > 0 ? `(${remainingCount}) Tasks` : 'Tasks'
+  }, [remainingCount])
 
   return (
     <div id="app">
@@ -33,7 +40,10 @@ export function App() {
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
       <TaskInput onAdd={addTask} />
-      <Filters currentFilter={currentFilter} onFilterChange={setCurrentFilter} />
+      <Filters
+        currentFilter={currentFilter}
+        onFilterChange={setCurrentFilter}
+      />
       <TaskList
         tasks={filteredTasks}
         totalTasksCount={tasks.length}
@@ -47,5 +57,5 @@ export function App() {
         onClear={clearCompleted}
       />
     </div>
-  );
+  )
 }

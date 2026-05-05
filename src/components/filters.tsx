@@ -1,15 +1,15 @@
-import { Filter } from '../types';
+import { Filter } from '../types'
 
 interface FiltersProps {
-  currentFilter: Filter;
-  onFilterChange: (filter: Filter) => void;
+  currentFilter: Filter
+  onFilterChange: (filter: Filter) => void
 }
 
 const FILTERS: { label: string; value: Filter }[] = [
   { label: 'All', value: 'all' },
   { label: 'Active', value: 'active' },
   { label: 'Completed', value: 'completed' },
-];
+]
 
 export function Filters({ currentFilter, onFilterChange }: FiltersProps) {
   return (
@@ -26,5 +26,5 @@ export function Filters({ currentFilter, onFilterChange }: FiltersProps) {
         </button>
       ))}
     </div>
-  );
+  )
 }

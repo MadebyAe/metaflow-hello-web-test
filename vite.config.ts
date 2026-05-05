@@ -1,17 +1,17 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import type { Plugin } from 'vite';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import type { Plugin } from 'vite'
 
 function healthEndpoint(): Plugin {
   return {
     name: 'health-endpoint',
     configureServer(server) {
       server.middlewares.use('/health', (_req, res) => {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.end('OK');
-      });
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
+        res.end('OK')
+      })
     },
-  };
+  }
 }
 
 export default defineConfig({
@@ -22,4 +22,4 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
   },
-});
+})

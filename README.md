@@ -37,10 +37,10 @@ The app will be available at `http://localhost:5173`.
 
 ## Available Scripts
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Start the local development server |
-| `npm run build` | Type-check and build for production |
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the local development server   |
+| `npm run build`   | Type-check and build for production  |
 | `npm run preview` | Preview the production build locally |
 
 ## Project Structure
@@ -71,6 +71,7 @@ package.json
 Every push to `main` automatically deploys to GitHub Pages via the workflow at `.github/workflows/deploy.yml`.
 
 To enable GitHub Pages on a new fork:
+
 1. Go to **Settings → Pages**
 2. Set **Source** to `Deploy from a branch`
 3. Select the `gh-pages` branch
