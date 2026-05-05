@@ -4,29 +4,63 @@ type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'theme'
 
-function getInitialTheme(): Theme {
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored === 'light' || stored === 'dark') return stored
+function getOsTheme(): Theme {
   if (
     typeof window !== 'undefined' &&
-    typeof window.matchMedia === 'function'
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches
   ) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
+    return 'dark'
   }
   return 'light'
 }
 
-export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme)
+function getStoredTheme(): Theme | null {
+  const stored = localStorage.getItem(STORAGE_KEY)
+  if (stored === 'light' || stored === 'dark') return stored
+  return null
+}
 
+export function useTheme() {
+  // null = no manual override, follow OS
+  const [manualTheme, setManualTheme] = useState<Theme | null>(getStoredTheme)
+  const [osTheme, setOsTheme] = useState<Theme>(getOsTheme)
+
+  const theme = manualTheme ?? osTheme
+
+  // Apply theme to document
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem(STORAGE_KEY, theme)
   }, [theme])
 
-  const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'))
+  // Persist manual override, or clear it
+  useEffect(() => {
+    if (manualTheme !== null) {
+      localStorage.setItem(STORAGE_KEY, manualTheme)
+    } else {
+      localStorage.removeItem(STORAGE_KEY)
+    }
+  }, [manualTheme])
+
+  // Listen for OS theme changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function')
+      return
+
+    const mql = window.matchMedia('(prefers-color-scheme: dark)')
+    const handler = (e: MediaQueryListEvent) => {
+      setOsTheme(e.matches ? 'dark' : 'light')
+    }
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
+  }, [])
+
+  const toggleTheme = () => {
+    setManualTheme((current) => {
+      const base = current ?? osTheme
+      return base === 'light' ? 'dark' : 'light'
+    })
+  }
 
   return { theme, toggleTheme }
 }
