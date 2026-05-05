@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom'
+import { vi } from 'vitest'
 
 let localStorageStore: Record<string, string> = {}
 
@@ -25,17 +26,19 @@ Object.defineProperty(window, 'localStorage', {
   configurable: true,
 })
 
+const defaultMatchMedia = (query: string): MediaQueryList => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: () => {},
+  removeListener: () => {},
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  dispatchEvent: () => false,
+})
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   configurable: true,
-  value: (query: string): MediaQueryList => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: () => {},
-    removeListener: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => false,
-  }),
+  value: vi.fn().mockImplementation(defaultMatchMedia),
 })
