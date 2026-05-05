@@ -34,8 +34,8 @@ function makeMql(matches: boolean) {
 beforeEach(() => {
   localStorage.clear()
   document.documentElement.removeAttribute('data-theme')
-  // Reset to default light matchMedia stub (defined in setup.ts)
-  vi.restoreAllMocks()
+  // Reset call history but keep the vi.fn() spy intact so mockImplementation works
+  vi.resetAllMocks()
 })
 
 describe('useTheme', () => {
