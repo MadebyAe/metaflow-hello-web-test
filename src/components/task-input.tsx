@@ -1,20 +1,20 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 interface TaskInputProps {
-  onAdd: (text: string) => void;
+  onAdd: (text: string) => void
 }
 
 export function TaskInput({ onAdd }: TaskInputProps) {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const trimmed = value.trim();
+    e.preventDefault()
+    const trimmed = value.trim()
     if (trimmed) {
-      onAdd(trimmed);
-      setValue('');
+      onAdd(trimmed)
+      setValue('')
     }
-  };
+  }
 
   return (
     <form id="add-form" onSubmit={handleSubmit}>
@@ -28,5 +28,5 @@ export function TaskInput({ onAdd }: TaskInputProps) {
       />
       <button type="submit">Add</button>
     </form>
-  );
+  )
 }
