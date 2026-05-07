@@ -47,19 +47,39 @@ The app will be available at `http://localhost:5173`.
 
 ```
 src/
-  app.tsx                  # Root application component
-  main.tsx                 # React entry point
-  index.css                # Global styles
-  types.ts                 # Shared TypeScript types (Task, Priority, Filter)
-  use-tasks.ts             # (legacy) task hook — superseded by hooks/use-tasks.ts
+  app.tsx                          # Root application component
+  main.tsx                         # React entry point
+  index.css                        # Global styles
+  types.ts                         # Shared TypeScript types (Task, Priority, Filter)
+  use-tasks.ts                     # Re-export shim for hooks/use-tasks.ts
   components/
-    task-input.tsx         # Add-task form
-    task-list.tsx          # Renders the list or empty state
-    task-item.tsx          # Individual task row
-    filters.tsx            # All / Active / Completed filter buttons
-    footer.tsx             # Remaining count + Clear completed
+    filters/
+      filters.tsx                  # All / Active / Completed filter buttons
+    footer/
+      footer.tsx                   # Remaining count + Clear completed
+    nav-link/
+      nav-link.tsx                 # Header navigation link
+    stats-page/
+      stats-page.tsx               # Task statistics view
+    task-input/
+      task-input.tsx               # Add-task form
+    task-item/
+      task-item.tsx                # Individual task row
+    task-list/
+      task-list.tsx                # Renders the list or empty state
   hooks/
-    use-tasks.ts           # Task state, localStorage persistence, derived counts
+    use-hash-route.ts              # Filter state derived from the URL path
+    use-tasks.ts                   # Task state, localStorage persistence, derived counts
+    use-theme.ts                   # Light/dark theme with OS detection and persistence
+  lib/
+    db.ts                          # IndexedDB access layer
+  test/
+    setup.ts                       # Vitest/jsdom test setup (localStorage mock, matchMedia mock)
+    app.test.tsx                   # Integration tests for the App component
+    stats-page.test.tsx            # Unit tests for StatsPage
+    task-item.test.tsx             # Unit tests for TaskItem
+    use-tasks.test.ts              # Unit tests for useTasks hook
+    use-theme.test.ts              # Unit tests for useTheme hook
 index.html
 vite.config.ts
 tsconfig.json
