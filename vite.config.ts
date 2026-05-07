@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import type { Plugin } from 'vite'
 
 function healthEndpoint(): Plugin {
@@ -15,7 +16,7 @@ function healthEndpoint(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), healthEndpoint()],
+  plugins: [react(), vanillaExtractPlugin(), healthEndpoint()],
   base: '/metaflow-hello-web-test/',
   test: {
     environment: 'jsdom',
