@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { TaskItem } from '../components/task-item'
+import { TaskItem } from '../components/task-item/task-item'
 import { Task } from '../types'
 
 const baseTask: Task = {
