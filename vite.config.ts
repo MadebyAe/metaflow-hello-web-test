@@ -16,7 +16,7 @@ function healthEndpoint(): Plugin {
 
 export default defineConfig({
   plugins: [react(), healthEndpoint()],
-  base: '/metaflow-hello-web-test/',
+  base: process.env.VITE_BASE ?? '/metaflow-hello-web-test/',
   test: {
     environment: 'jsdom',
     globals: true,
