@@ -1,17 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { Filter } from '../types'
 
-function getHash(): string {
-  return window.location.hash.replace(/^#/, '') || '/'
+const FILTER_PATHS: Record<string, Filter> = {
+  '/active': 'active',
+  '/completed': 'completed',
+  '/': 'all',
+  '': 'all',
 }
 
-export function useHashRoute(): string {
-  const [route, setRoute] = useState<string>(getHash)
+const FILTER_TO_PATH: Record<Filter, string> = {
+  all: '/',
+  active: '/active',
+  completed: '/completed',
+}
 
-  useEffect(() => {
-    const handler = () => setRoute(getHash())
-    window.addEventListener('hashchange', handler)
-    return () => window.removeEventListener('hashchange', handler)
-  }, [])
+export function useHashRoute(): [Filter, (filter: Filter) => void] {
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  return route
+  const currentFilter: Filter = FILTER_PATHS[location.pathname] ?? 'all'
+
+  const setFilter = (filter: Filter) => {
+    navigate(FILTER_TO_PATH[filter])
+  }
+
+  return [currentFilter, setFilter]
 }

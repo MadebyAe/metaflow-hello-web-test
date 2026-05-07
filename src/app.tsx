@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { Filter } from './types'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useTasks } from './hooks/use-tasks'
 import { useTheme } from './hooks/use-theme'
 import { useHashRoute } from './hooks/use-hash-route'
@@ -12,7 +12,7 @@ import { StatsPage } from './components/stats-page'
 import { NavLink } from './components/nav-link'
 
 export function App() {
-  const [currentFilter, setCurrentFilter] = useState<Filter>('all')
+  const [currentFilter, setCurrentFilter] = useHashRoute()
   const {
     tasks,
     addTask,
@@ -22,7 +22,7 @@ export function App() {
     cyclePriority,
   } = useTasks()
   const { theme, toggleTheme } = useTheme()
-  const route = useHashRoute()
+  const { pathname } = useLocation()
 
   const filteredTasks = tasks.filter((t) => {
     if (currentFilter === 'active') return !t.done
@@ -42,17 +42,17 @@ export function App() {
       <header>
         <h1>Tasks</h1>
         <nav className="header-nav">
-          <NavLink href="/" currentRoute={route}>
+          <NavLink href="/" currentRoute={pathname}>
             Home
           </NavLink>
-          <NavLink href="/stats" currentRoute={route}>
+          <NavLink href="/stats" currentRoute={pathname}>
             Stats
           </NavLink>
         </nav>
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
 
-      {route === '/stats' ? (
+      {pathname === '/stats' ? (
         <StatsPage tasks={tasks} />
       ) : (
         <>
