@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { StatsPage } from '../components/stats-page'
+import { StatsPage } from '../components/stats-page/stats-page'
 import { Task } from '../types'
 
 const makeTasks = (overrides: Partial<Task>[] = []): Task[] =>
