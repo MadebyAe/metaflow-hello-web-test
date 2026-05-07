@@ -2,7 +2,6 @@ import { describe, it, expect, beforeEach, type Mock } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useTheme } from '../hooks/use-theme'
 
-// Helper to build a controllable MediaQueryList mock
 function makeMql(matches: boolean) {
   const listeners: Array<(e: MediaQueryListEvent) => void> = []
   const mql = {
@@ -19,7 +18,6 @@ function makeMql(matches: boolean) {
     addListener: () => {},
     removeListener: () => {},
     dispatchEvent: () => false,
-    /** Fire a change event to all registered listeners */
     _fire(newMatches: boolean) {
       const event = { matches: newMatches } as MediaQueryListEvent
       listeners.forEach((cb) => cb(event))
@@ -112,13 +110,10 @@ describe('useTheme', () => {
     const mql = makeMql(false)
     ;(window.matchMedia as Mock).mockImplementation(() => mql)
     const { result } = renderHook(() => useTheme())
-    // Set manual override
     act(() => result.current.toggleTheme())
     expect(result.current.theme).toBe('dark')
-    // OS switches to dark too — manual should stay
     act(() => mql._fire(true))
     expect(result.current.theme).toBe('dark')
-    // OS switches back to light — manual override keeps dark
     act(() => mql._fire(false))
     expect(result.current.theme).toBe('dark')
   })
