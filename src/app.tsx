@@ -7,7 +7,6 @@ import { TaskInput } from './components/task-input'
 import { Filters } from './components/filters'
 import { TaskList } from './components/task-list'
 import { Footer } from './components/footer'
-import { ThemeToggle } from './components/theme-toggle'
 import { StatsPage } from './components/stats-page'
 import { NavLink } from './components/nav-link'
 
@@ -21,7 +20,7 @@ export function App() {
     clearCompleted,
     cyclePriority,
   } = useTasks()
-  const { theme, toggleTheme } = useTheme()
+  useTheme()
   const { pathname } = useLocation()
 
   const filteredTasks = tasks.filter((t) => {
@@ -49,7 +48,6 @@ export function App() {
             Stats
           </NavLink>
         </nav>
-        <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
 
       {pathname === '/stats' ? (
