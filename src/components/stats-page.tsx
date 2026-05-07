@@ -19,12 +19,14 @@ export function StatsPage({ tasks }: StatsPageProps) {
   const open = total - completed
   const progress = total === 0 ? 0 : Math.round((completed / total) * 100)
 
-  const byPriority = PRIORITY_ORDER.map((p) => ({
-    priority: p,
-    label: PRIORITY_LABELS[p],
-    total: tasks.filter((t) => t.priority === p).length,
-    completed: tasks.filter((t) => t.priority === p && t.done).length,
-  })).filter((row) => row.total > 0)
+  const byPriority = PRIORITY_ORDER.filter((p) => p !== 'none')
+    .map((p) => ({
+      priority: p,
+      label: PRIORITY_LABELS[p],
+      total: tasks.filter((t) => t.priority === p).length,
+      completed: tasks.filter((t) => t.priority === p && t.done).length,
+    }))
+    .filter((row) => row.total > 0)
 
   return (
     <div className="stats-page">
