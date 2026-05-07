@@ -21,9 +21,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
-        env:
-          VITE_BASE: /metaflow-hello-web-test/pr/${{ github.event.number }}/
+      - run: npx vite build --base=/metaflow-hello-web-test/pr/${{ github.event.number }}/
 
       - uses: JamesIves/github-pages-deploy-action@v4
         with:
