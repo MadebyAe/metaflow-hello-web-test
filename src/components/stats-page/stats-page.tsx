@@ -1,4 +1,4 @@
-import { Task, Priority } from '../types'
+import { Task, Priority } from '../../types'
 
 interface StatsPageProps {
   tasks: Task[]
