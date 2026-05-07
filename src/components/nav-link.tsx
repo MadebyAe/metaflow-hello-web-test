@@ -1,7 +1,9 @@
+import type { ReactNode } from 'react'
+
 interface NavLinkProps {
   href: string
   currentRoute: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function NavLink({ href, currentRoute, children }: NavLinkProps) {
