@@ -19,6 +19,10 @@
   --priority-medium: #ecc94b;
   --priority-low: #4299e1;
   --checkbox-accent: #1a1a1a;
+  --progress-track: #e8e8e8;
+  --progress-fill: #1a1a1a;
+  --stats-card-open: #4299e1;
+  --stats-card-done: #48bb78;
 }
 
 [data-theme='dark'] {
@@ -42,6 +46,10 @@
   --priority-medium: #ecc94b;
   --priority-low: #4299e1;
   --checkbox-accent: #f0f0f0;
+  --progress-track: #3a3a3a;
+  --progress-fill: #f0f0f0;
+  --stats-card-open: #4299e1;
+  --stats-card-done: #48bb78;
 }
 
 *,
@@ -75,12 +83,50 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 header h1 {
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+}
+
+/* ── Nav ── */
+.header-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-surface);
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.nav-link:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.nav-link--active {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-border);
+}
+
+.nav-link--active:hover {
+  opacity: 0.85;
+  color: var(--btn-primary-text);
 }
 
 .theme-toggle {
@@ -303,4 +349,171 @@ button[type='submit']:hover {
   font-size: 0.95rem;
   padding: 24px 16px;
   list-style: none;
+}
+
+/* ── Stats page ── */
+.stats-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.stats-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stats-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stats-card__value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.stats-card--open .stats-card__value {
+  color: var(--stats-card-open);
+}
+
+.stats-card--done .stats-card__value {
+  color: var(--stats-card-done);
+}
+
+.stats-card__label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Progress bar ── */
+.stats-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stats-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.stats-progress__label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stats-progress__pct {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stats-progress__track {
+  height: 10px;
+  background: var(--progress-track);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stats-progress__track--sm {
+  height: 6px;
+}
+
+.stats-progress__fill {
+  height: 100%;
+  background: var(--progress-fill);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.stats-progress__fill--high {
+  background: var(--priority-high);
+}
+
+.stats-progress__fill--medium {
+  background: var(--priority-medium);
+}
+
+.stats-progress__fill--low {
+  background: var(--priority-low);
+}
+
+.stats-progress__fill--none {
+  background: var(--text-muted);
+}
+
+/* ── Priority breakdown ── */
+.stats-breakdown__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-breakdown__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-breakdown__item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stats-breakdown__meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stats-breakdown__name {
+  flex: 1;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.stats-breakdown__count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.stats-breakdown__pct {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+.stats-empty {
+  text-align: center;
+  color: var(--text-placeholder);
+  font-size: 0.95rem;
+  padding: 24px 16px;
 }

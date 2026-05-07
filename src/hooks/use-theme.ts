@@ -47,7 +47,10 @@ export function useTheme() {
 
   // Listen for OS theme changes
   useEffect(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function')
+    if (
+      typeof window === 'undefined' ||
+      typeof window.matchMedia !== 'function'
+    )
       return
 
     const mql = window.matchMedia('(prefers-color-scheme: dark)')
