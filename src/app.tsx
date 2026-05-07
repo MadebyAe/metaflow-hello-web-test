@@ -3,12 +3,12 @@ import { useLocation } from 'react-router-dom'
 import { useTasks } from './hooks/use-tasks'
 import { useTheme } from './hooks/use-theme'
 import { useHashRoute } from './hooks/use-hash-route'
-import { TaskInput } from './components/task-input'
-import { Filters } from './components/filters'
+import { TaskInput } from './components/task-input/task-input'
+import { Filters } from './components/filters/filters'
 import { TaskList } from './components/task-list'
-import { Footer } from './components/footer'
+import { Footer } from './components/footer/footer'
 import { StatsPage } from './components/stats-page'
-import { NavLink } from './components/nav-link'
+import { NavLink } from './components/nav-link/nav-link'
 
 export function App() {
   const [currentFilter, setCurrentFilter] = useHashRoute()
