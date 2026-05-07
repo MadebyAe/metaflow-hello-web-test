@@ -1,7 +1,16 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { MemoryRouter } from 'react-router-dom'
 import { App } from '../app'
+
+function renderApp() {
+  return render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  )
+}
 
 beforeEach(() => {
   localStorage.clear()
@@ -10,18 +19,18 @@ beforeEach(() => {
 
 describe('App', () => {
   it('renders the heading', () => {
-    render(<App />)
+    renderApp()
     expect(screen.getByRole('heading', { name: 'Tasks' })).toBeInTheDocument()
   })
 
   it('shows empty state when no tasks exist', () => {
-    render(<App />)
+    renderApp()
     expect(screen.getByText('No tasks yet — add one above')).toBeInTheDocument()
   })
 
   it('adds a task via the form', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Write tests')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     expect(screen.getByText('Write tests')).toBeInTheDocument()
@@ -29,7 +38,7 @@ describe('App', () => {
 
   it('marks a task complete via checkbox', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Complete me')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     const checkbox = screen.getByRole('checkbox', {
@@ -41,7 +50,7 @@ describe('App', () => {
 
   it('deletes a task', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Delete me')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     await user.click(screen.getByRole('button', { name: /Delete "Delete me"/ }))
@@ -50,7 +59,7 @@ describe('App', () => {
 
   it('filters active and completed tasks', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Active task')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Done task')
@@ -71,7 +80,7 @@ describe('App', () => {
 
   it('shows no tasks match message when filter has no results', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Active task')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     await user.click(screen.getByRole('button', { name: 'Completed' }))
@@ -80,7 +89,7 @@ describe('App', () => {
 
   it('clear completed button removes done tasks', async () => {
     const user = userEvent.setup()
-    render(<App />)
+    renderApp()
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Keep')
     await user.click(screen.getByRole('button', { name: 'Add' }))
     await user.type(screen.getByPlaceholderText('Add a task...'), 'Clear')
