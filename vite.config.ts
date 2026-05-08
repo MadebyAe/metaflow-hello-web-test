@@ -1,7 +1,32 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin, type ResolvedConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
-import type { Plugin } from 'vite'
+import { transform, normalizePath } from '@vanilla-extract/integration'
+
+const styleFileFilter = /\.style\.ts(\?.*)?$/
+
+function vanillaStylePlugin(): Plugin {
+  let config: ResolvedConfig
+
+  return {
+    name: 'vanilla-extract-style-files',
+    enforce: 'pre',
+    configResolved(c) {
+      config = c
+    },
+    async transform(code, id) {
+      const [validId] = id.split('?')
+      if (!styleFileFilter.test(validId)) return null
+
+      return transform({
+        source: code,
+        filePath: normalizePath(validId),
+        rootPath: config.root,
+        packageName: 'app',
+        identOption: config.mode === 'production' ? 'short' : 'debug',
+      })
+    },
+  }
+}
 
 function healthEndpoint(): Plugin {
   return {
@@ -16,7 +41,7 @@ function healthEndpoint(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin(), healthEndpoint()],
+  plugins: [react(), vanillaStylePlugin(), healthEndpoint()],
   base: '/metaflow-hello-web-test/',
   test: {
     environment: 'jsdom',
