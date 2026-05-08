@@ -16,7 +16,13 @@ function healthEndpoint(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), vanillaExtractPlugin(), healthEndpoint()],
+  plugins: [
+    react(),
+    vanillaExtractPlugin({
+      include: [/\.css\.ts$/, /\.style\.ts$/],
+    }),
+    healthEndpoint(),
+  ],
   base: '/metaflow-hello-web-test/',
   test: {
     environment: 'jsdom',

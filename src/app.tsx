@@ -9,7 +9,7 @@ import { TaskList } from './components/task-list/task-list'
 import { Footer } from './components/footer/footer'
 import { StatsPage } from './components/stats-page/stats-page'
 import { NavLink } from './components/nav-link/nav-link'
-import { appRoot } from './app.css'
+import { appRoot } from './app.style'
 
 export function App() {
   const [currentFilter, setCurrentFilter] = useHashRoute()
