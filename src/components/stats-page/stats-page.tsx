@@ -107,7 +107,9 @@ export function StatsPage({ tasks }: StatsPageProps) {
       )}
 
       {total === 0 && (
-        <p className="stats-empty">No tasks yet — add some to see your stats.</p>
+        <p className="stats-empty">
+          No tasks yet — add some to see your stats.
+        </p>
       )}
     </div>
   )

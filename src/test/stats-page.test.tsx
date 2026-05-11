@@ -21,11 +21,7 @@ describe('StatsPage', () => {
   })
 
   it('displays correct total, open, and completed counts', () => {
-    const tasks = makeTasks([
-      { done: false },
-      { done: false },
-      { done: true },
-    ])
+    const tasks = makeTasks([{ done: false }, { done: false }, { done: true }])
     render(<StatsPage tasks={tasks} />)
     expect(screen.getByText('3')).toBeInTheDocument() // total
     expect(screen.getByText('2')).toBeInTheDocument() // open
